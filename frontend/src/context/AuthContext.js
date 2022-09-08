@@ -40,26 +40,33 @@ export const AuthProvider = ({children}) => {
         navigate('/')
     }
 
-    const registerUser = async (first_name, last_name, email, username, password, password2) => {
-        const response = await fetch('http://127.0.0.1:8000/api/register/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            first_name,
-            last_name,
-            email,
-            username,
-            password,
-            password2
-          })
-        });
-        if (response.status === 201) {
-          navigate('/');
+    const registerUser = async (e) => {
+        if (e.target.password === e.target.password2){
+            e.preventDefault()
+            let response = await fetch('http://127.0.0.1:8000/api/register/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'first_name': e.target.first_name.value,
+                'last_name': e.target.last_name.value,
+                'email': e.target.email.value,
+                'username': e.target.username.value,
+                'password': e.target.password.value,
+                'password2': e.target.password2.value,
+            })
+            });
+
+            if (response.status === 201) {
+                console.log("here")
+                navigate('/login')
+            } else {
+            alert('Something went wrong!');
+            }
         } else {
-          alert('Something went wrong!');
-        }
+            alert('You entered two different passwords!')
+            }
       };
     
 
