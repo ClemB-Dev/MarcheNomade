@@ -1,5 +1,5 @@
 import {createContext, useState, useEffect} from 'react'
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 import {useNavigate} from 'react-router-dom'
 
 const AuthContext = createContext()
@@ -37,22 +37,46 @@ export const AuthProvider = ({children}) => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem('authTokens')
-        navigate('/login')
+        navigate('/')
     }
+
+    const registerUser = async (first_name, last_name, email, username, password, password2) => {
+        const response = await fetch('http://127.0.0.1:8000/api/register/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            first_name,
+            last_name,
+            email,
+            username,
+            password,
+            password2
+          })
+        });
+        if (response.status === 201) {
+          navigate('/');
+        } else {
+          alert('Something went wrong!');
+        }
+      };
+    
 
     let contextData = {
         user: user,
         authTokens:authTokens,
+        registerUser:registerUser,
         loginUser:loginUser,
         logoutUser:logoutUser,
     }
 
     useEffect(() => {
         if (authTokens) {
-            setUser(jwt_decode(authTokens.access))
+          setUser(jwt_decode(authTokens.access));
         }
-        setLoading(false)
-    }, [authTokens, loading])
+        setLoading(false);
+      }, [authTokens, loading]);    
 
     return (
         <AuthContext.Provider value={contextData}>
