@@ -40,14 +40,12 @@ export const AuthProvider = ({children}) => {
         navigate('/')
     }
 
-    const registerUser = async (e) => {
+    let registerUser = async (e) => {
         if (e.target.password === e.target.password2){
             e.preventDefault()
             let response = await fetch('http://127.0.0.1:8000/api/register/', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 'first_name': e.target.first_name.value,
                 'last_name': e.target.last_name.value,
@@ -59,7 +57,6 @@ export const AuthProvider = ({children}) => {
             });
 
             if (response.status === 201) {
-                console.log("here")
                 navigate('/login')
             } else {
             alert('Something went wrong!');
