@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import AuthContext from '../context/AuthContext'
 import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import '../css/signIn.css'
+import '../css/authentification.css'
 
 
 const LoginPage = () => {
@@ -12,6 +12,8 @@ const LoginPage = () => {
       <div className='screen'>
         <div className='loginContainer'>
           <form className='login' onSubmit={loginUser}>
+          <div className='form-title'>Connexion</div>
+          <div className='register-div'><p className='register-sentence'>Pas encore inscrit? <Link className='register-link' to='/register'>Inscription</Link></p></div>
             <div className='login_field'>
               <label>Username</label><br></br>
               <input
@@ -32,10 +34,10 @@ const LoginPage = () => {
             <div className='login_submit'>
               <input
                   className='button_text'
-                  type='submit'/>
+                  type='submit'
+                  value="S'inscrire"/>
             </div>
           </form>
-          <Link className='register-btn' to='/register'>Register</Link>
         </div>
       </div>
     </div>
