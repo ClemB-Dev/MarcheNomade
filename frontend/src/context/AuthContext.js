@@ -20,9 +20,8 @@ export const AuthProvider = ({children}) => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({'username': e.target.username.value, 'password': e.target.password.value})
         })
-
         let data = await response.json()
-        
+
         if(response.status === 200){
             setAuthTokens(data)
             setUser(jwt_decode(data.access))
@@ -37,11 +36,11 @@ export const AuthProvider = ({children}) => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem('authTokens')
-        navigate('/')
+        navigate('/login')
     }
 
     let registerUser = async (e) => {
-        if (e.target.password === e.target.password2){
+        if (e.target.password.value === e.target.password2.value){
             e.preventDefault()
             let response = await fetch('http://127.0.0.1:8000/api/register/', {
             method: 'POST',
@@ -64,23 +63,24 @@ export const AuthProvider = ({children}) => {
         } else {
             alert('You entered two different passwords!')
             }
-      };
-    
+    };
 
     let contextData = {
         user: user,
-        authTokens:authTokens,
+        authTokens: authTokens,
+        setAuthTokens:setAuthTokens,
+        setUser:setUser,
         registerUser:registerUser,
-        loginUser:loginUser,
-        logoutUser:logoutUser,
+        loginUser: loginUser,
+        logoutUser: logoutUser,
     }
 
     useEffect(() => {
         if (authTokens) {
-          setUser(jwt_decode(authTokens.access));
+          setUser(jwt_decode(authTokens.access))
         }
-        setLoading(false);
-      }, [authTokens, loading]);    
+        setLoading(false)
+    }, [authTokens, loading])
 
     return (
         <AuthContext.Provider value={contextData}>
