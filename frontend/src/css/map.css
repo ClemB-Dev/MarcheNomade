@@ -1,0 +1,13 @@
+.map-container{
+    height: 400px;
+}
+
+.mapboxgl-ctrl-bottom-right, .mapboxgl-ctrl, .mapboxgl-ctrl-attrib, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib-inner {
+    height: min-content;
+    background: none;
+    }
+
+.mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-top-left, .mapboxgl-ctrl-top-right {
+    height: min-content;
+    background: none;
+    }
