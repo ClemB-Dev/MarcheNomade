@@ -26,7 +26,7 @@ const RegisterPage = () => {
             <input
                 className='login_input'
                 type='text'
-                name='lastname'
+                name='last_name'
                 placeholder='Entrez le nom'/>
           </div>
           <div className='login_field'>
@@ -42,19 +42,19 @@ const RegisterPage = () => {
             <input
                 className='login_input'
                 type='text'
-                name='username'
+                name='email'
                 placeholder='Entrez une adresse mail'/>
           </div>
           <div className='login_field'>
             <label>Mot de passe</label><br></br>
             <input
                 className='login_input'
-                type='text'
+                type='password'
                 name='password'
                 placeholder='Entrez un mot de passe'/>
             <input
                 className='login_input'
-                type='text'
+                type='password'
                 name='password2'
                 placeholder='Confirmer le mot de passe'/>
           </div>
