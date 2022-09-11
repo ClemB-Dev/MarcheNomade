@@ -23,7 +23,7 @@ function Map() {
     });
 
     return(
-        <div>
+        <div className='map-div2'>
             <div ref={mapContainer} className="map-container" />
         </div>
     )

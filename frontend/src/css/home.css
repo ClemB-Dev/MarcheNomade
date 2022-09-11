@@ -1,0 +1,40 @@
+html, body, #root{
+    height:100vh;
+    overflow: hidden;
+}
+
+.home { 
+    display: grid; 
+    grid-template-columns: 8fr 1fr; 
+    grid-template-rows: 1fr; 
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height:90vh;
+    }
+
+.map-div{
+    grid-area:  1 / 1 / 2 / 2;
+}
+
+.market-list {
+    overflow-y: scroll;
+    grid-area: 1 / 2 / 2 / 3;
+} 
+
+.list{
+    list-style-type: none;
+}
+
+.market-item{
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 0;
+    text-align: center;
+    line-height: 15px;
+}
+
+.market-icon{
+    margin: 5px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}

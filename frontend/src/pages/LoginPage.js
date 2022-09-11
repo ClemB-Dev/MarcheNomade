@@ -35,7 +35,7 @@ const LoginPage = () => {
               <input
                   className='button_text'
                   type='submit'
-                  value="S'inscrire"/>
+                  value="Se connecter"/>
             </div>
           </form>
         </div>

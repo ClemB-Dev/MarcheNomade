@@ -1,0 +1,14 @@
+.header{
+    border-bottom: 1px solid black;
+    justify-content: center;
+    height: 10vh;
+}
+
+.header-btn{
+    text-align: center;
+}
+
+.header-icon{
+    height: 96px;
+    width: 96px;
+}
