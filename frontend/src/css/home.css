@@ -5,7 +5,7 @@ html, body, #root{
 
 .home { 
     display: grid; 
-    grid-template-columns: 8fr 1fr; 
+    grid-template-columns: 8fr 0.7fr; 
     grid-template-rows: 1fr; 
     grid-column-gap: 0px;
     grid-row-gap: 0px;
@@ -18,11 +18,14 @@ html, body, #root{
 
 .market-list {
     overflow-y: scroll;
+    overflow-x: hidden;
+    width: 1fr;
     grid-area: 1 / 2 / 2 / 3;
 } 
 
 .list{
     list-style-type: none;
+    content: inherit;
 }
 
 .market-item{
@@ -30,11 +33,22 @@ html, body, #root{
     margin-right: 5px;
     margin-bottom: 0;
     text-align: center;
-    line-height: 15px;
+    height: fit-content;
 }
 
 .market-icon{
     margin: 5px;
+    width: 5vw;
     padding-bottom: 0;
     margin-bottom: 0;
+}
+
+.market-name{
+    margin-top: 0;
+    padding-top: 0;
+    font-size: 1.3vw;
+}
+
+.market-item:hover{
+    box-shadow: 1px;
 }

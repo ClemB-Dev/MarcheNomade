@@ -35,7 +35,7 @@ const HomePage = () => {
       <div className='market-list'>
         <ul className='list'>
           {market.map(market => (
-            <li className='market-item' key={market.id}><img className='market-icon' src={MarketIcon}/>{market.name}</li>
+            <li className='market-item' key={market.id}><img className='market-icon' src={MarketIcon}/><div className='market-name'>{market.name}</div></li>
           ))}
         </ul>
       </div>
