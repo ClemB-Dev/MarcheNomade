@@ -1,18 +1,15 @@
 import axios from 'axios'
-import React, {useState, useEffect, useContext} from 'react'
-import AuthContext from '../context/AuthContext'
+import React, {useState, useEffect} from 'react'
 import useAxios from '../utils/useAxios'
-import ReactMapGl from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Map from '../components/Map'
 import '../css/home.css'
 import MarketIcon from '../assets/market.png'
 
 const HomePage = () => {
-  let [market, setMarket] = useState([])
-  let {authTokens, logoutUser} = useContext(AuthContext)
+  let [markets, setMarket] = useState([])
 
-  // let api = useAxios()
+  let api = useAxios()
 
 
   useEffect(() => {
@@ -30,12 +27,13 @@ const HomePage = () => {
   return (
     <div className='home'>
       <div className='map-div'>
-        <Map></Map>
-      </div>      
+        <Map markets={markets}>
+        </Map>
+      </div>
       <div className='market-list'>
         <ul className='list'>
-          {market.map(market => (
-            <li className='market-item' key={market.id}><img className='market-icon' src={MarketIcon}/><div className='market-name'>{market.name}</div></li>
+          {markets.map(market => (
+            <li className='market-item' key={market.id}><img alt='market-icon' className='market-icon' src={MarketIcon}/><div className='market-name'>{market.name}</div></li>
           ))}
         </ul>
       </div>

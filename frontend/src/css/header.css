@@ -1,14 +1,16 @@
 .header{
     border-bottom: 1px solid black;
     justify-content: center;
-    height: 10vh;
+    height: 8vh;
+    align-items: center;
 }
 
 .header-btn{
+    margin: 0 auto;
     text-align: center;
 }
 
 .header-icon{
-    height: 96px;
-    width: 96px;
+    height: 8vh;
+    margin: 0 auto;
 }
