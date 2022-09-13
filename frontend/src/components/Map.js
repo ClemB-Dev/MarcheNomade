@@ -14,21 +14,35 @@ function Map(props) {
 
   const filterStands = (market, stands) => {
     let filteredStands = stands.filter(stand => stand.market === market.id)
-    return filteredStands} 
+    let standLists = filteredStands.map(st => (
+      `<li key=${st.id}>${st.name}</li>`
+    ))
+    if (filteredStands.length > 0){
+      return (
+        `<div>
+          <p>${filteredStands.length} stands</p>
+          <ul style='list-style-type: none;' className='stand-list-map'>
+            ${standLists.join('')}
+          </ul>
+        </div>`
+      )
+    }
+    else{
+      return (
+        `<div>
+          <p>${filteredStands.length} stands</p>
+        </div>`
+      )
+    }
+  } 
   
   let features = props.markets?.map(market => {
-    let filteredStands = filterStands(market, props.stands)
+    let title = `<h4 className='popup-market-name'>${market.name}</h4>`
+    let img = market.image === null ? '' : `<img alt='market-icon' className='market-logo' src='http://localhost:8000${market.image}'/>`
     let completeAdress = market.number === null ? `${market.address}, ${market.postcode}, ${market.city}` : `${market.number} ${market.address}, ${market.postcode}, ${market.city}`
-    let description =
-    market.image === null ?
-    `<h4 className='popup-market-name'>${market.name}</h4>
-    <p className='popup-market-address'>${completeAdress}</p>
-    <p>${filteredStands.length} stands</p>`
-    :
-    `<h4 className='popup-market-name'>${market.name}</h4>
-    <img alt='market-icon' className='market-logo' src='http://localhost:8000${market.image}'/>
-    <p className='popup-market-address'>${completeAdress}</p>
-    <p>${filteredStands.length} stands</p>`
+    let stands = filterStands(market, props.stands)
+    let description = title + img + completeAdress + stands
+
     return {
       'type': 'Feature',
       'properties': {
