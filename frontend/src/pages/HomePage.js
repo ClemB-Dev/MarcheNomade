@@ -37,22 +37,30 @@ const HomePage = () => {
 
   const filterStands = (market, stands) => {
     let filteredStands = stands.filter(stand => stand.market === market.id)
-    return (
-      <span
-        data-tip
-        data-for={`stand-list${market.id}`}
-        className='dot'
-        >
-        {filteredStands.length}
-        <ReactTooltip id={`stand-list${market.id}`}>
-        <ul>
-        {filteredStands?.map(st => (
-                <li className='market-item' key={`${market.id}${st.id}`}>{st.name}</li>
-                ))}
-        </ul>
-        </ReactTooltip>
-      </span>
-    )
+    if (filteredStands.length > 0) {    
+      return (
+          <span
+            data-tip
+            data-for={`stand-list${market.id}`}
+            className='dot'
+            >
+            {filteredStands.length}
+            <ReactTooltip id={`stand-list${market.id}`}>
+            <ul className='stand-list'>
+            {filteredStands?.map(st => (
+                    <li className='stand-list-item' key={`${market.id}${st.id}`}>{st.name}</li>
+                    ))}
+            </ul>
+            </ReactTooltip>
+          </span>
+        )}
+    else {
+      return (
+        <span className='dot'>
+          {filteredStands.length}
+        </span>
+      )
+    }
   }
 
   return (
