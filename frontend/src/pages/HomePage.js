@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import useAxios from '../utils/useAxios'
-import 'mapbox-gl/dist/mapbox-gl.css';
+import 'mapbox-gl/dist/mapbox-gl.css'
 import Map from '../components/Map'
 import '../css/home.css'
 import MarketIcon from '../assets/market.png'
@@ -9,6 +9,7 @@ import ReactTooltip from 'react-tooltip'
 
 
 const HomePage = () => {
+  console.log('here')
   let [markets, setMarket] = useState([])
   let [stands, setStands] = useState([])
 
