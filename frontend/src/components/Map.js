@@ -116,17 +116,17 @@ function Map(props) {
           'circle-color': [
               'step',
               ['get', 'point_count'],
-              '#51bbd6',
+              '#28981f',
               3,
-              '#f1f075',
+              '#28981f',
               4,
-              '#f28cb1'
+              '#28981f'
               ],
           'circle-radius': [
               'step',
               ['get', 'point_count'],
               20,
-              3,
+              2,
               30,
               4,
               40
