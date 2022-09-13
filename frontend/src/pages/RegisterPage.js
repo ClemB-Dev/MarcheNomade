@@ -35,7 +35,7 @@ const RegisterPage = () => {
                 className='login_input'
                 type='text'
                 name='username'
-                placeholder='Entrez un nom utilisateur'/>
+                placeholder="Entrez un nom d'utilisateur"/>
           </div>
           <div className='login_field'>
             <label>Email</label><br></br>
@@ -56,7 +56,7 @@ const RegisterPage = () => {
                 className='login_input'
                 type='password'
                 name='password2'
-                placeholder='Confirmer le mot de passe'/>
+                placeholder='Confirmez le mot de passe'/>
           </div>
           <div className='login_submit'>
             <input

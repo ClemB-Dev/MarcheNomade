@@ -15,21 +15,21 @@ const LoginPage = () => {
           <div className='form-title'>Connexion</div>
           <div className='register-div'><p className='register-sentence'>Pas encore inscrit? <Link className='register-link' to='/register'>Inscription</Link></p></div>
             <div className='login_field'>
-              <label>Username</label><br></br>
+              <label>Nom d'utilisateur</label><br></br>
               <input
                   className='login_input'
                   type='text'
                   name='username'
-                  placeholder='Enter username'/>
+                  placeholder="Entrez un nom d'utilisateur"/>
             </div>
             <div className='login_field'>
               {/* <i className="login_icon fas fa-lock"></i> */}
-              <label>Password</label><br></br>
+              <label>Mot de passe</label><br></br>
               <input
                   className='login_input'
                   type='password'
                   name='password'
-                  placeholder='Enter password'/>
+                  placeholder='Entrer un mot de passe'/>
             </div>
             <div className='login_submit'>
               <input
