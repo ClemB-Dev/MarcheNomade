@@ -66,3 +66,19 @@ html, body, #root{
     top: 2px;
     /* margin-right: 50px; */
 }
+
+.stand-list{
+    padding-left: 15px;
+    list-style-type: circle;
+    text-align: left;
+}
+
+.__react_component_tooltip{
+
+    padding: 10px !important;
+}
+
+.stand-list-label{
+    text-align: left;
+    font-weight: bold;
+}

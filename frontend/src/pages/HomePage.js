@@ -47,6 +47,7 @@ const HomePage = () => {
             >
             {filteredStands.length}
             <ReactTooltip id={`stand-list${market.id}`}>
+            <label className='stand-list-label'>Artisans:</label>
             <ul className='stand-list'>
             {filteredStands?.map(st => (
                     <li className='stand-list-item' key={`${market.id}${st.id}`}>{st.name}</li>
