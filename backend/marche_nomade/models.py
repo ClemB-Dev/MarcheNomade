@@ -1,3 +1,5 @@
+from distutils.command.upload import upload
+from email.policy import default
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import User
@@ -14,6 +16,7 @@ class Market(models.Model):
     country = models.CharField(max_length=100)
     latitude = models.CharField(max_length=200)
     longitude = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='images/', null=True)
 
     def __str__(self):
         return self.name
