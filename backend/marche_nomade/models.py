@@ -1,10 +1,7 @@
-from distutils.command.upload import upload
-from email.policy import default
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import User
 from multiselectfield import MultiSelectField
-from geopy.geocoders import Nominatim
 
 
 class Market(models.Model):
