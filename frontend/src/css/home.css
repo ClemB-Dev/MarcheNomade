@@ -34,6 +34,7 @@ html, body, #root{
     margin-bottom: 0;
     text-align: center;
     height: fit-content;
+    position: relative;
 }
 
 .market-icon{
@@ -51,4 +52,16 @@ html, body, #root{
 
 .market-item:hover{
     box-shadow: 1px;
+}
+
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid black;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    /* margin-right: 50px; */
 }

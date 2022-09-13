@@ -16,7 +16,7 @@ class Market(models.Model):
     country = models.CharField(max_length=100)
     latitude = models.CharField(max_length=200)
     longitude = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='images/', null=True)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
 
     def __str__(self):
         return self.name

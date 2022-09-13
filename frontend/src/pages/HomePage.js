@@ -5,15 +5,18 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import Map from '../components/Map'
 import '../css/home.css'
 import MarketIcon from '../assets/market.png'
+import ReactTooltip from 'react-tooltip'
+
 
 const HomePage = () => {
   let [markets, setMarket] = useState([])
+  let [stands, setStands] = useState([])
 
-  let api = useAxios()
-
+  // let api = useAxios()
 
   useEffect(() => {
     getMarkets()
+    getStands()
   }, [])
 
   let getMarkets = async() => {
@@ -22,18 +25,50 @@ const HomePage = () => {
     if(response.status === 200){
       setMarket(response.data)
     }
-}
+  }
+
+  let getStands = async() => {
+    let response = await axios.get('http://127.0.0.1:8000/marche_nomade/stands/')
+
+    if(response.status === 200){
+      setStands(response.data)
+    }
+  }
+
+  const filterStands = (market, stands) => {
+    let filteredStands = stands.filter(stand => stand.market === market.id)
+    return (
+      <span
+        data-tip
+        data-for={`stand-list${market.id}`}
+        className='dot'
+        >
+        {filteredStands.length}
+        <ReactTooltip id={`stand-list${market.id}`}>
+        <ul>
+        {filteredStands?.map(st => (
+                <li className='market-item' key={`${market.id}${st.id}`}>{st.name}</li>
+                ))}
+        </ul>
+        </ReactTooltip>
+      </span>
+    )
+  }
 
   return (
     <div className='home'>
       <div className='map-div'>
-        <Map markets={markets}>
+        <Map markets={markets} stands={stands}>
         </Map>
       </div>
       <div className='market-list'>
         <ul className='list'>
           {markets.map(market => (
-            <li className='market-item' key={market.id}><img alt='market-icon' className='market-icon' src={MarketIcon}/><div className='market-name'>{market.name}</div></li>
+            <li className='market-item' key={market.id}>
+              <img alt='market-icon' className='market-icon' src={MarketIcon}/>
+              {filterStands(market, stands)}
+              <div className='market-name'>{market.name}</div>
+            </li>
           ))}
         </ul>
       </div>

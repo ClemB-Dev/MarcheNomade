@@ -9,7 +9,7 @@ import HomeImg from '../assets/home.png'
 const Header = () => {
   let {user, logoutUser} = useContext(AuthContext)
   return (
-    <div className='header'>
+    <div className='header' id='header'>
         <Link className='header-btn' to='/'><img className='header-icon' src={HomeImg}/></Link>
         {user 
           ? (<Link className='header-btn' to='/login' onClick={logoutUser}>Logout</Link>)

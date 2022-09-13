@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 import '../css/map.css'
+
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2xlbWItZGV2IiwiYSI6ImNsN3Vqd3VrNzAyaWIzd21nOWZld2VzOW0ifQ.HHUy82xozPgv0hbHWLxXEg'
 
@@ -11,72 +12,64 @@ function Map(props) {
   const [lat, setLat] = useState(48.856614);
   const [zoom, setZoom] = useState(2);
 
-  let geoJsonData =  {
-    'type': 'FeatureCollection',
-    'features': []}
-
-  const geojson = {
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [-77.032, 38.913]
-        },
-        properties: {
-          title: 'Mapbox',
-          description: 'Washington, D.C.'
-        }
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [-122.414, 37.776]
-        },
-        properties: {
-          title: 'Mapbox',
-          description: 'San Francisco, California'
-        }
-      }
-    ]
-  };
-
-  props.markets?.map(market => {
-    var completeAdress = market.number === null ? `${market.address}, ${market.postcode}, ${market.city}` : `${market.number} ${market.address}, ${market.postcode}, ${market.city}`
-    var description =
-      `<h4 className='popup-market-name'>${market.name}</h4> 
-      <p className='popup-market-address'>${completeAdress}</p>`
-    geoJsonData.features.push({
+  const filterStands = (market, stands) => {
+    let filteredStands = stands.filter(stand => stand.market === market.id)
+    return filteredStands} 
+  
+  let features = props.markets?.map(market => {
+    let filteredStands = filterStands(market, props.stands)
+    let completeAdress = market.number === null ? `${market.address}, ${market.postcode}, ${market.city}` : `${market.number} ${market.address}, ${market.postcode}, ${market.city}`
+    let description =
+    market.image === null ?
+    `<h4 className='popup-market-name'>${market.name}</h4>
+    <p className='popup-market-address'>${completeAdress}</p>
+    <p>${filteredStands.length} stands</p>`
+    :
+    `<h4 className='popup-market-name'>${market.name}</h4>
+    <img alt='market-icon' className='market-logo' src='http://localhost:8000${market.image}'/>
+    <p className='popup-market-address'>${completeAdress}</p>
+    <p>${filteredStands.length} stands</p>`
+    return {
       'type': 'Feature',
       'properties': {
-          'description': description
-          },
+        'description': description
+      },
       'geometry': {
-          'type': 'Point',
-          'coordinates': [market.latitude, market.longitude]
-          }
-    })
+        'type': 'Point',
+        'coordinates': [market.latitude, market.longitude]
+      }
+    }
   })
-
-  useEffect(() => {
-    const map = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [lng, lat],
-      zoom: zoom,
-      projection: 'globe',
-    });
+  
+  let geoJsonData =  {
+    'type': 'FeatureCollection',
+    'features': features}
     
-    map.on('load', () => {
-      map.addSource('markets', {
-        type: 'geojson',
-        data: geoJsonData,
-        cluster: true,
-        clusterMaxZoom: 14,
-        clusterRadius: 50,
-      })
+    useEffect(() => {
+      const map = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [lng, lat],
+        zoom: zoom,
+        projection: 'globe',
+      });
+      
+      
+      map.on('load', () => {
+        map.loadImage(
+          'https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-market-vegan-and-vegetarian-flaticons-flat-flat-icons.png', // Path to your image here
+          (error, image) => {
+            if (error) throw error;
+            map.addImage('market', image);
+          })
+
+        map.addSource('markets', {
+          type: 'geojson',
+          data: geoJsonData,
+          cluster: true,
+          clusterMaxZoom: 14,
+          clusterRadius: 50,
+        })
 
       map.addLayer({
         id: 'clusters',
@@ -84,11 +77,6 @@ function Map(props) {
         source: 'markets',
         filter: ['has', 'point_count'],
         paint: {
-        // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-        // with three steps to implement three types of circles:
-        //   * Blue, 20px circles when point count is less than 100
-        //   * Yellow, 30px circles when point count is between 100 and 750
-        //   * Pink, 40px circles when point count is greater than or equal to 750
           'circle-color': [
               'step',
               ['get', 'point_count'],
@@ -125,15 +113,20 @@ function Map(props) {
          
       map.addLayer({
         id: 'unclustered-point',
-        type: 'circle',
+        type: 'symbol',
         source: 'markets',
         filter: ['!', ['has', 'point_count']],
-        paint: {
-        'circle-color': '#11b4da',
-        'circle-radius': 4,
-        'circle-stroke-width': 1,
-        'circle-stroke-color': '#fff'
-        }
+        layout: {
+          'icon-image': 'market', // The name has to match with the image loaded
+          'icon-size': 0.85,
+          "icon-allow-overlap": false // This can be 'true' if you want to display all the markers 
+          },
+        // paint: {
+        // 'circle-color': 'white',
+        // 'circle-radius': 10,
+        // 'circle-stroke-width': 2,
+        // 'circle-stroke-color': '#fff'
+        // }
       });
 
       const popup = new mapboxgl.Popup({
@@ -141,36 +134,28 @@ function Map(props) {
         closeOnClick: false
         });        
 
-        map.on('mouseenter', 'markets', (e) => {
-          // Change the cursor style as a UI indicator.
+        map.on('mouseenter', 'unclustered-point', (e) => {
           map.getCanvas().style.cursor = 'pointer';
            
-          // Copy coordinates array.
           const coordinates = e.features[0].geometry.coordinates.slice();
           const description = e.features[0].properties.description;
            
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
           while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
            
-          // Populate the popup and set its coordinates
-          // based on the feature found.
           popup.setLngLat(coordinates).setHTML(description).addTo(map);
           });
            
-          map.on('mouseleave', 'markets', () => {
+          map.on('mouseleave', 'unclustered-point', () => {
           map.getCanvas().style.cursor = '';
           popup.remove();
           });
-                  
+      // here              
     })
 
-    //   Add navigation control (the +/- zoom buttons)
-    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
-      
+    map.touchZoomRotate.disableRotation();
+
     map.addControl(
       new mapboxgl.GeolocateControl({
       positionOptions: {
@@ -183,6 +168,37 @@ function Map(props) {
       })
     );
   
+    const popup = new mapboxgl.Popup({
+      closeButton: false,
+      closeOnClick: false
+    });
+       
+    map.on('mouseenter', 'markets', (e) => {
+      // Change the cursor style as a UI indicator.
+      map.getCanvas().style.cursor = 'pointer';
+        
+        // Copy coordinates array.
+      const coordinates = e.features[0].geometry.coordinates.slice();
+      const description = e.features[0].properties.description;
+        
+      // Ensure that if the map is zoomed out such that multiple
+      // copies of the feature are visible, the popup appears
+      // over the copy being pointed to.
+      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      }
+        
+      // Populate the popup and set its coordinates
+      // based on the feature found.
+      popup.setLngLat(coordinates).setHTML(description).addTo(map);
+    });
+      
+    map.on('mouseleave', 'markets', () => {
+      map.getCanvas().style.cursor = '';
+      popup.remove();
+    });
+
+
 
     map.on('style.load', () => {
       map.setFog({}); // Set the default atmosphere style
