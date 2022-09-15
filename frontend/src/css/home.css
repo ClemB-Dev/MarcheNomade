@@ -48,6 +48,9 @@ html, body, #root{
     margin-top: 0;
     padding-top: 0;
     font-size: 1.1vw;
+    color: black;
+    position: relative;
+    bottom: 13px;
 }
 
 .market-item:hover{

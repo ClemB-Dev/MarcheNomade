@@ -49,6 +49,7 @@ function Map(props) {
       'type': 'Feature',
       'properties': {
         'title': `<p style='font-weight: bold'>${market.name}</p><p style='font-weight: lighter'>${completeAdress}</p>`,
+        'title': `${market.name}<br>${market.address}, ${market.postcode}, ${market.city}`,
         // 'title': `${market.name}`,
         'description': description
       },
@@ -194,6 +195,7 @@ function Map(props) {
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl,
     localGeocoder: forwardGeocoder,
+    placeholder: 'Recherchez un marché ou une adresse',
   })
 
   map.addControl(geocoder)

@@ -5,6 +5,8 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+	background-color: white;
+	z-index: 1;
 }
 
 .container{
@@ -27,7 +29,8 @@
 	position: absolute;
 	left: 10px;
 	color: #fffc;
-    margin-top: 1vh;    
+    margin-top: 1vh;
+	z-index: 1;    
 }
 
 .header-icon{
@@ -48,7 +51,7 @@
 }
 .slider-menu > li {
 	text-align: center;
-    height: 10vh;
+    height: 8vh;
 	display: inline-flex;
 	padding-left: 14px;
 	padding-right: 14px;
@@ -63,4 +66,10 @@
 .slider-menu > .header-link:hover {
 	background-color: rgba(0, 0, 0, 0.15);
 	color: black;
+}
+
+.stand-manage-text{
+	background-color: white;
+	position: absolute;
+	top: 7vh;
 }

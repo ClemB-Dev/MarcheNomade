@@ -6,6 +6,7 @@ import Map from '../components/Map'
 import '../css/home.css'
 import MarketIcon from '../assets/market.png'
 import ReactTooltip from 'react-tooltip'
+import { Link } from 'react-router-dom'
 
 
 const HomePage = () => {
@@ -16,7 +17,6 @@ const HomePage = () => {
   
   useEffect(() => {
     getMarkets()
-    getStands()
   }, [])
 
   let getMarkets = async() => {
@@ -26,27 +26,20 @@ const HomePage = () => {
     }
   }
   
-  let getStands = async() => {
-    let response = await axios.get('http://127.0.0.1:8000/marche_nomade/stands/')
-    if(response.status === 200){
-      setStands(response.data)
-    }
-  }
-  
-  const filterStands = (market, stands) => {
-    let filteredStands = stands.filter(stand => stand.market === market.id)
-    if (filteredStands.length > 0) {    
+  const filterStands = (market) => {
+    let stands = market.stands
+    if (stands.length > 0) {    
       return (
         <span
         data-tip
         data-for={`stand-list${market.id}`}
         className='dot'
         >
-            {filteredStands.length}
+            {stands.length}
             <ReactTooltip id={`stand-list${market.id}`}>
             <label className='stand-list-label'>Artisans:</label>
             <ul className='stand-list'>
-            {filteredStands?.map(st => (
+            {stands?.map(st => (
               <li className='stand-list-item' key={`${market.id}${st.id}`}>{st.name}</li>
               ))}
             </ul>
@@ -56,7 +49,7 @@ const HomePage = () => {
         else {
           return (
             <span className='dot'>
-          {filteredStands.length}
+          {stands.length}
         </span>
       )
     }
@@ -73,9 +66,11 @@ const HomePage = () => {
         <ul className='list'>
           {markets.map(market => (
             <li className='market-item' key={market.id}>
+              <Link to={`/market/${market.id}`}>
               <img alt='market-icon' className='market-icon' src={MarketIcon}/>
               {filterStands(market, stands)}
               <div className='market-name'>{market.name}</div>
+              </Link>
             </li>
           ))}
         </ul>
