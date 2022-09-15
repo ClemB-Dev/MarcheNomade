@@ -24,6 +24,8 @@ def get_markets(request):
 @api_view(['GET'])
 def get_one_market_data(request, pk):
     market = Market.objects.get(id=pk)
+    # stands = Stand.objects.filter(market=market)
+    # market['stands'] = stands
     serializer_class = MarketSerializer(market, many=False)
     return Response(serializer_class.data)
 
@@ -38,17 +40,17 @@ def get_categories(request):
 @api_view(['GET'])
 def get_one_stand_data(request, pk):
     stand = Stand.objects.get(id=pk)
-    serilizer = StandSerializer(stand, many=False)
-    return Response(serilizer.data)
+    serializer_class = StandSerializer(stand, many=False)
+    return Response(serializer_class.data)
 
 
-@api_view(['PUT'])
+@api_view(['PUT', 'GET'])
 def update_stand(request, pk):
     stand = Stand.objects.get(id=pk)
-    serilizer = StandSerializer(instance=stand, data=request.data)
-    if serilizer.is_valid():
-        serilizer.save()
-    return Response(serilizer.data)
+    serializer_class = StandSerializer(instance=stand, data=request.data)
+    if serializer_class.is_valid():
+        serializer_class.save()
+    return Response(serializer_class.data)
 
 
 @api_view(['GET'])

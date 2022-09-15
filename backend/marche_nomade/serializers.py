@@ -9,9 +9,13 @@ class StandSerializer(serializers.ModelSerializer):
 
 
 class MarketSerializer(serializers.ModelSerializer):
+    stands = StandSerializer(source='stand_set', many=True)
+
     class Meta:
         model = Market
-        fields = '__all__'
+        fields = ('id', 'name', 'number', 'address', 'postcode',
+                  'city', 'country', 'latitude', 'longitude',
+                  'image', 'stands')
 
 
 class CategorySerializer(serializers.ModelSerializer):
