@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import Header from './components/Header';
 import RegisterPage from './pages/RegisterPage';
+import ManageStands from './pages/ManageStands';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           < Route element={<HomePage/>} path='/' exact />
           < Route element={<LoginPage/>} path='/login'/>
           < Route element={<RegisterPage/>} path='/register'/>
+          < Route element={<ManageStands/>} path='/manage-stands'/>
         </Routes>
       </AuthProvider>
     </div>
