@@ -42,6 +42,15 @@ def get_one_stand_data(request, pk):
     return Response(serilizer.data)
 
 
+@api_view(['PUT'])
+def update_stand(request, pk):
+    stand = Stand.objects.get(id=pk)
+    serilizer = StandSerializer(instance=stand, data=request.data)
+    if serilizer.is_valid():
+        serilizer.save()
+    return Response(serilizer.data)
+
+
 @api_view(['GET'])
 def get_routes(request):
     routes = [
@@ -49,6 +58,7 @@ def get_routes(request):
         '/marche_nomade/markets',
         '/marche_nomade/categories',
         '/marche_nomade/stands/<pk>',
+        '/marche_nomade/stands/update/<pk>',
         '/marche_nomade/markets/<pk>',
     ]
     return Response(routes)
