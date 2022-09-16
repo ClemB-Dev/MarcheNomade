@@ -14,7 +14,8 @@ function Map(props) {
   const [lat, setLat] = useState(48.856614)
   const [zoom, setZoom] = useState(2)
 
-  const filterStands = (market, stands) => {
+  const filterStands = (market) => {
+    let stands = market.stands
     let filteredStands = stands.filter(stand => stand.market === market.id)
     let standLists = filteredStands.map(st => (
       `<li key=${st.id}>${st.name}</li>`
@@ -42,13 +43,13 @@ function Map(props) {
     let title = `<h4 className='popup-market-name'>${market.name}</h4>`
     let img = market.image === null ? '' : `<img alt='market-icon' className='market-logo' src='http://localhost:8000${market.image}'/>`
     let completeAdress = market.number === null ? `<p>${market.address}, ${market.postcode}, ${market.city}</p>` : `<p>${market.number} ${market.address}, ${market.postcode}, ${market.city}</p>`
-    let stands = filterStands(market, props.stands)
+    let stands = filterStands(market)
     let description = title + img + completeAdress + stands
 
     return {
       'type': 'Feature',
       'properties': {
-        'title': `<p style='font-weight: bold'>${market.name}</p><p style='font-weight: lighter'>${completeAdress}</p>`,
+        // 'title': `<p style='font-weight: bold'>${market.name}</p><p style='font-weight: lighter'>${completeAdress}</p>`,
         'title': `${market.name}<br>${market.address}, ${market.postcode}, ${market.city}`,
         // 'title': `${market.name}`,
         'description': description
