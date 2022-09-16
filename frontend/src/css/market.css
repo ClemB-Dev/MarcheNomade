@@ -1,5 +1,15 @@
-.market-home{
-    background-image: url('../assets/market-background.jpeg');
-    background-size: cover;
-    background-repeat: no-repeat;
+.image-map-src{
+    height: 100%;
+    width: 100%;
+}
+
+/* .image-map{
+    z-index: 2;
+} */
+
+.map-area{
+    border: white;
+    
+    position: absolute;
+    cursor:url(https://img.icons8.com/color/48/000000/marker--v1.png) 20 40, default;
 }

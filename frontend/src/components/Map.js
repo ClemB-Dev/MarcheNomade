@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
@@ -9,10 +9,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY2xlbWItZGV2IiwiYSI6ImNsN3Vqd3VrNzAyaWIzd21nO
 
 function Map(props) {
   const mapContainer = useRef(null)
-  const map = useRef(null)
-  const [lng, setLng] = useState(2.3522219)
-  const [lat, setLat] = useState(48.856614)
-  const [zoom, setZoom] = useState(2)
+  const lng = 2.3522219
+  const lat = 48.856614
+  const zoom = 2
 
   const filterStands = (market) => {
     let stands = market.stands
@@ -50,7 +49,8 @@ function Map(props) {
       'type': 'Feature',
       'properties': {
         // 'title': `<p style='font-weight: bold'>${market.name}</p><p style='font-weight: lighter'>${completeAdress}</p>`,
-        'title': `${market.name}<br>${market.address}, ${market.postcode}, ${market.city}`,
+        'title': `${market.name} \n\n
+                  ${market.address}, ${market.postcode}, ${market.city}`,
         // 'title': `${market.name}`,
         'description': description
       },
@@ -158,12 +158,6 @@ function Map(props) {
         'icon-size': 0.85,
         "icon-allow-overlap": false // This can be 'true' if you want to display all the markers 
         },
-      // paint: {
-      // 'circle-color': 'white',
-      // 'circle-radius': 10,
-      // 'circle-stroke-width': 2,
-      // 'circle-stroke-color': '#fff'
-      // }
     })
 
     const popup = new mapboxgl.Popup({

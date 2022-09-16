@@ -1,19 +1,20 @@
 import 'aframe'
 import Prototypes from 'prop-types'
 
-
 function Sign({x, y, z, l, m, n, id, textValue}) {
     return (
-            <a-entity
+            <a-text
                 id={`sign-${id}`}
+                width='2.7'
+                height='4.8'
                 geometry="primitive: plane; width: 2.7ds; height: 4.8;"
-                material="shader: flat; transparent:true"
+                material="shader: flat; color: #cfd4b5"
                 text={`wrapCount: 15; align: center; color: black; font-weight: bold; font-weight: larger; value: ${textValue}`}
                 position={`${x} ${y} ${z}`}
                 rotation={`${l} ${m} ${n}`}
                 scale="1 1 1"
             >
-            </a-entity>
+            </a-text>
     );
 }
 

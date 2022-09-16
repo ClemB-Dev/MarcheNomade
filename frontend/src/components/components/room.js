@@ -16,39 +16,39 @@ function Room() {
             </a-plane>
             <a-plane
                 id="wall-front"
-                position="0 7.5 -15"
+                position="0 10 -15"
                 rotation="0 0 0"
                 width="30"
-                height="15"
+                height="20"
             >
             </a-plane>
             <a-plane
                 id="wall-left"
-                position="-15 7.5 0"
+                position="-15 10 0"
                 rotation="0 90 0"
                 width="30"
-                height="15"
+                height="20"
             >
             </a-plane>
             <a-plane
                 id="wall-right"
-                position="15 7.5 0"
+                position="15 10 0"
                 rotation="0 270 0"
                 width="30"
-                height="15"
+                height="20"
             >
             </a-plane>
             <a-plane
                 id="wall-back"
-                position="0 7.5 15"
+                position="0 10 15"
                 rotation="0 180 0"
                 width="30"
-                height="15"
+                height="20"
             >
             </a-plane>
             <a-plane
                 id="ceiling"
-                position="0 15 0"
+                position="0 20 0"
                 rotation="90 00 0"
                 width="30"
                 height="30"

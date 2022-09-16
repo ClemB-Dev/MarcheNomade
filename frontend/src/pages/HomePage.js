@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from 'react'
-import useAxios from '../utils/useAxios'
 import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import Map from '../components/Map'
 import '../css/home.css'
+import Map from '../components/Map'
 import MarketList from '../components/MarketList'
+// import useAxios from '../utils/useAxios'
 
 
 const HomePage = () => {
   let [markets, setMarket] = useState([])
 
-  let api = useAxios()
-  
+  // let api = useAxios()
+
   useEffect(() => {
     getMarkets()
   }, [])

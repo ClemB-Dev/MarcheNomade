@@ -10,7 +10,7 @@ function Screen() {
             >
                 <a-box
                     id="screen"
-                    position="0 7.5 -14.75"
+                    position="0 10 -14.75"
                     rotation="0 0 0"
                     width="17"
                     height="10"
@@ -20,7 +20,7 @@ function Screen() {
                 <a-video
                     id="video"
                     src="#video"
-                    position="0 7.5 -14.45"
+                    position="0 10 -14.45"
                     rotation="0 0 0"
                     width="16"
                     height="9"
