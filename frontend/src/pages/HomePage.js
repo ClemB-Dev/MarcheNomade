@@ -4,13 +4,10 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import '../css/home.css'
 import Map from '../components/Map'
 import MarketList from '../components/MarketList'
-// import useAxios from '../utils/useAxios'
 
 
 const HomePage = () => {
   let [markets, setMarket] = useState([])
-
-  // let api = useAxios()
 
   useEffect(() => {
     getMarkets()

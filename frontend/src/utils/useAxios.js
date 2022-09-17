@@ -24,12 +24,14 @@ const useAxios = () => {
     
         if(!isExpired) return req
     
+
         const response = await axios.post(`${baseURL}/api/token/refresh/`, {
             refresh: authTokens.refresh,
           });
 
+        authTokens.access = response.data.access
 
-        localStorage.setItem('authTokens', JSON.stringify(response.data))
+        localStorage.setItem('authTokens', JSON.stringify(authTokens))
         setAuthTokens(response.data)
         setUser(jwt_decode(response.data.access))
         

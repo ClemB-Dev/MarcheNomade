@@ -1,5 +1,7 @@
+from math import perm
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from .models import Market, Stand, Category
 from rest_framework.parsers import JSONParser
 from .serializers import (
@@ -67,6 +69,15 @@ def get_single_stand(request, pk):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user_stands(request):
+    user = request.user
+    stands = user.stand_set.all()
+    serializer = StandSerializer(stands, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
 def get_routes(request):
     routes = [
         {
@@ -116,6 +127,12 @@ def get_routes(request):
             'method': 'DELETE',
             'body': None,
             'description': 'Deletes and exiting stand'
+        },
+        {
+            'Endpoint': '/user/stands/',
+            'method': 'GET',
+            'body': None,
+            'description': 'Returns stands belonging to connected user'
         },
     ]
     return Response(routes)
