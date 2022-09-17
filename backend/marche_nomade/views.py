@@ -24,6 +24,14 @@ def get_markets(request):
         return Response(serializer.data)
 
 
+@api_view(['GET'])
+def get_single_market(request, pk):
+    if request.method == 'GET':
+        market = Market.objects.get(id=pk)
+        serializer = MarketSerializer(market, many=False)
+        return Response(serializer.data)
+
+
 @api_view(['GET', 'POST'])
 def get_stands(request):
     if request.method == 'GET':
