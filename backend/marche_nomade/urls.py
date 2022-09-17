@@ -1,14 +1,13 @@
 from django.urls import path
-from .views import (get_categories, get_markets, get_one_market_data,
-                    get_one_stand_data, get_stands, get_routes, update_stand)
+from .views import (get_categories, get_markets, get_stands,
+                    get_single_stand, get_routes,
+                    )
 
 
 urlpatterns = [
-    path('', get_routes),
-    path('stands/', get_stands),
-    path('categories/', get_categories),
-    path('markets/', get_markets),
-    path('stands/<pk>/', get_one_stand_data),
-    path('stands/update/<pk>/', update_stand),
-    path('markets/<pk>/', get_one_market_data),
+    path('', get_routes, name='routes'),
+    path('categories/', get_categories, name='categories'),
+    path('markets/', get_markets, name='markets'),
+    path('stands/', get_stands, name='stands'),
+    path('stands/<pk>/', get_single_stand, name='stand'),
 ]
