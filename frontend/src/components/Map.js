@@ -3,12 +3,14 @@ import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import '../css/map.css'
+import { useNavigate } from 'react-router-dom'
 
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2xlbWItZGV2IiwiYSI6ImNsN3Vqd3VrNzAyaWIzd21nOWZld2VzOW0ifQ.HHUy82xozPgv0hbHWLxXEg'
 
 function Map(props) {
   const mapContainer = useRef(null)
+  const navigate = useNavigate()
   const lng = 2.3522219
   const lat = 48.856614
   const zoom = 2
@@ -43,7 +45,8 @@ function Map(props) {
     let img = market.image === null ? '' : `<img alt='market-icon' className='market-logo' src='http://localhost:8000${market.image}'/>`
     let completeAdress = market.number === null ? `<p>${market.address}, ${market.postcode}, ${market.city}</p>` : `<p>${market.number} ${market.address}, ${market.postcode}, ${market.city}</p>`
     let stands = filterStands(market)
-    let description = title + img + completeAdress + stands
+
+    let description = title + img + completeAdress + stands 
 
     return {
       'type': 'Feature',
@@ -52,7 +55,8 @@ function Map(props) {
         'title': `${market.name} \n\n
                   ${market.address}, ${market.postcode}, ${market.city}`,
         // 'title': `${market.name}`,
-        'description': description
+        'description': description,
+        'url': `market/${market.id}`
       },
       'geometry': {
         'type': 'Point',
@@ -181,6 +185,12 @@ function Map(props) {
         map.on('mouseleave', 'unclustered-point', () => {
         map.getCanvas().style.cursor = ''
         popup.remove()
+        })
+      
+        map.on('click', 'unclustered-point', (e) => {
+          map.getCanvas().style.cursor = 'pointer'
+          const link = e.features[0].properties.url
+          navigate(link)
         })
   })
 
