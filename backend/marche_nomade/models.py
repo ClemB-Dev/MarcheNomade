@@ -30,7 +30,7 @@ class Stand(models.Model):
     name = models.CharField(max_length=100, blank=False)
     market = models.ForeignKey(Market, on_delete=models.CASCADE, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False)
-    phone_number = PhoneNumberField(region='FR', blank=True)
+    phone_number = PhoneNumberField(region='FR', blank=False)
     week_days = (
                 ('Lundi', 'Lundi'),
                 ('Mardi', 'Mardi'),
@@ -43,14 +43,14 @@ class Stand(models.Model):
         choices=week_days,
         default=week_days[0],
                 )
-    opening_hour = models.TimeField(blank=True, null=True)
-    closing_hour = models.TimeField(blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
-    website = models.URLField(blank=True, null=True)
+    opening_hour = models.TimeField(blank=False, null=False)
+    closing_hour = models.TimeField(blank=False, null=False)
+    email = models.EmailField(blank=False, null=False)
+    website = models.URLField(blank=False, null=False)
     photo = models.ImageField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  blank=False)
-    description = models.TextField(max_length=250, blank=True, null=True)
+    description = models.TextField(max_length=250, blank=False, null=False)
 
     def __str__(self):
         return self.name
