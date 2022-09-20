@@ -1,6 +1,105 @@
 .stand-managing{
+    display: flex;
+	overflow: scroll;
+	width: 100%;
+}
+
+.update-screen {	
+	margin: 0 auto;	
+	background: #fff;		
+	position: relative;	
+	width: 40%;	
+	box-shadow: 0px 0px 5px #c9d0d9;
+    border-radius: 0.3rem;
+	color: #67757c;
+	height: fit-content;
+}
+
+.update-div{
+    z-index: 1;
+    position: relative;	
+    height: 100%;
     text-align: center;
-    justify-content: center;
-    align-items: center;
+}
+
+.update-form{
+	overflow: scroll;
+    padding-bottom: 30px;
+    margin: 0 auto;
+	padding-top: 25px;
+}
+
+.update-field, .stand-select-div{
+    padding: 5px 10px;	
+	position: relative;
+	margin: auto 0;
+}
+
+.update-form .input-label{
+	display: flex;
+	justify-content: center;
+}
+
+.update-form .checkbox-label{
+	display: flex;
+	width: 40px;
+	margin-left: 2%;
+	padding: 3px;
+}
+
+.update-form select, .stand-select-div select {
+	margin: 5px;
+	width: fit-content;
+	height: 20px;
+	text-align: center;
+	text-align-last: center;
+	background: #eee;
+	display: inline-block;
+	cursor: pointer;
+	padding: 10px;
+}
+
+.update-form input {
+    border-color: #67757c;
+    text-align: center;
+	border-radius: .3rem;
+    background: none;
+	padding: 10px;
+    margin-top: 5px;
+	margin-bottom: 10px;
+	width: 93%;
+	transition: .2s;
+	border-width: thin;
+}
+
+.update-form input[type=checkbox]{
+	flex: none;
+}
+
+.update-form textarea {
+	width: 93%;
+	height: 70px;
+	padding: 10px;
+}
+
+.update-btn-div {
+	margin: 0 auto;
+	width: 25%;
+}
+
+
+.update-btn {
+	padding: 5px;
+	text-align: center;
+	margin: 10px;
+	border-radius: .3rem;
+	border: 1px solid #2e77d6;
+	font-weight: 300;
+	box-shadow: 1px 1px 1px #c9d0d9;
+	cursor: pointer;
+	transition: .2s;
+	text-decoration: none;
+	width: 25%;
+	color: #464d51;
 }
 

@@ -22,7 +22,7 @@ const HomePage = () => {
 
 
   return (
-    <div className='home'>
+    <div className='map-home'>
       <div className='map-div'>
         <Map markets={markets}>
         </Map>
